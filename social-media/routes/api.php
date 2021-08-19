@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,12 +27,13 @@ Route::get('/users/{user}',[UserController::class,'getUserById']);
 Route::get('/users/{user}/posts',[PostController::class,'getAllPostsForUserId']);
 Route::get('/users/{user}/posts/{post}',[PostController::class,'getPostByIdForUserId']);
 Route::get('/posts/{post}/comments',[CommentController::class,'getAllCommentsForPostId']);
-Route::get('/posts/{post}/comment/{user}',[CommentController::class,'getCommentByIdForPostId']);
+Route::get('/users/{user}/comments',[CommentController::class,'getAllCommentsForUserId']);
+Route::get('/posts/{post}/comment/{comment}',[CommentController::class,'getCommentByIdForPostId']);
 
-Route::post('/user',[UserController::class, 'AddUser']);
-Route::post('/user/{user}/post',[PostController::class, 'AddPost']);
-Route::post('/post/{post}/comment',[CommentController::class, 'AddComment']);
+Route::post('/user',[UserController::class, 'addUser']);
+Route::post('/user/{user}/post',[PostController::class, 'addPost']);
+Route::post('/post/{post}/comment',[CommentController::class, 'addComment']);
 
-Route::delete('/user/{user}',[UserController::class, 'DeleteUser']);
-Route::delete('/post/{post}',[PostController::class, 'DeletePost']);
-Route::delete('/comment/{comment}',[CommentController::class, 'DeleteComment']);
+Route::delete('/user/{user}',[UserController::class, 'deleteUser']);
+Route::delete('/post/{post}',[PostController::class, 'deletePost']);
+Route::delete('/comment/{comment}',[CommentController::class, 'deleteComment']);
