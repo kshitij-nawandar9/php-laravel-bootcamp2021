@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use app\Models\Post\PostService;
+use App\Models\Post\Service;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     private $postService;
 
-    public function __construct(PostService $postService)
+    public function __construct()
     {
-        $this->postService = $postService;
+        $this->postService = new Service();
     }
     public function addPost(Request $request, $user_id)
     {

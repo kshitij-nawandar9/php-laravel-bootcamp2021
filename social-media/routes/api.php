@@ -40,7 +40,7 @@ Route::get('/users/{user}/comments',[CommentController::class,'getAllCommentsFor
 Route::post('/posts/{post}/comments',[CommentController::class, 'addComment']);
 
 
-
+//TODO
 
 //Route::delete('/user/{user}',[UserController::class, 'deleteUser']);
 //Route::delete('/post/{post}',[PostController::class, 'deletePost']);

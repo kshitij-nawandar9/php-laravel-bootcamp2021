@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class PostService
+class Service
 {
     public function addPost(Request $request, $user_id)
     {
@@ -31,23 +31,20 @@ class PostService
 
     public function getAllPosts()
     {
-        $posts = DB::table('posts')->get();
-        return $posts;
+        return DB::table('posts')->get();
     }
 
     public function getAllPostsForUserId($user_id)
     {
-        $posts = DB::table('posts')
+        return DB::table('posts')
             ->where('user_id', '=', $user_id)
             ->get();
-        return $posts;
     }
 
     public function getPostById($post_id)
     {
-        $posts = DB::table('posts')
+        return DB::table('posts')
             ->where('id', '=', $post_id)
             ->get();
-        return $posts;
     }
 }

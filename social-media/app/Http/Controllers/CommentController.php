@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use app\Models\Comment\CommentService;
+use App\Models\Comment\Service;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
     private $commentService;
 
-    public function __construct(CommentService $commentService)
+    public function __construct()
     {
-        $this->commentService = $commentService;
+        $this->commentService = new Service();
     }
 
     public function addComment(Request $request, $post_id)

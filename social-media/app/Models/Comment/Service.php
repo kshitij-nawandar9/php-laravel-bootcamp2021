@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class CommentService
+class Service
 {
     public function addComment(Request $request, $post_id)
     {
@@ -31,31 +31,27 @@ class CommentService
 
     public function getAllComments()
     {
-        $comments = DB::table('comments')->get();
-        return $comments;
+        return DB::table('comments')->get();
     }
 
     public function getAllCommentsForPostId($post_id)
     {
-        $comments = DB::table('comments')
+        return DB::table('comments')
             ->where('post_id', '=', $post_id)
             ->get();
-        return $comments;
     }
 
     public function getAllCommentsForUserId($user_id)
     {
-        $comments = DB::table('comments')
+        return DB::table('comments')
             ->where('user_id', '=', $user_id)
             ->get();
-        return $comments;
     }
 
     public function getCommentById($comment_id)
     {
-        $comments = DB::table('comments')
+        return DB::table('comments')
             ->where('id', '=', $comment_id)
             ->get();
-        return $comments;
     }
 }
