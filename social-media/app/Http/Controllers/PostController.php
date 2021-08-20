@@ -2,35 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use app\Models\Post\PostService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    public function addPost(Request $request,$user_id)
+    private $postService;
+
+    public function __construct(PostService $postService)
     {
-        $content = $request->input('content');
-        $id=DB::table('posts')->insertGetId([
-            'content'=>$content,
-            'user_id'=>$user_id
-        ]);
-        return $id;
+        $this->postService = $postService;
+    }
+    public function addPost(Request $request, $user_id)
+    {
+        return $this->postService->addPost($request,$user_id);
+    }
+
+    public function getAllPosts()
+    {
+        return $this->postService->getAllPosts();
     }
 
     public function getAllPostsForUserId($user_id)
     {
-        $posts = DB::table('posts')
-            ->where('user_id','=',$user_id)
-            ->get();
-        return $posts;
+        return $this->postService->getAllPostsForUserId($user_id);
     }
 
-    public function getPostByIdForUserId($user_id,$post_id)
+    public function getPostById($post_id)
     {
-        $posts = DB::table('posts')
-            ->where('id','=',$post_id)
-            ->where('user_id','=',$user_id)
-            ->get();
-        return $posts;
+        return $this->postService->getPostById($post_id);
     }
 }

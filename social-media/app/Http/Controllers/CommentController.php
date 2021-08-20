@@ -2,44 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use app\Models\Comment\CommentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
-    public function addComment(Request $request,$user_id,$post_id)
+    private $commentService;
+
+    public function __construct(CommentService $commentService)
     {
-        $content = $request->input('content');
-        $id=DB::table('comments')->insertGetId([
-            'content'=>$content,
-            'user_id'=>$user_id,
-            'post_id'=>$post_id
-        ]);
-        return $id;
+        $this->commentService = $commentService;
+    }
+
+    public function addComment(Request $request, $post_id)
+    {
+        return $this->commentService->addComment($request,$post_id);
+    }
+
+    public function getAllComments()
+    {
+        return $this->commentService->getAllComments();
     }
 
     public function getAllCommentsForPostId($post_id)
     {
-        $comments = DB::table('comments')
-            ->where('post_id','=',$post_id)
-            ->get();
-        return $comments;
+        return $this->commentService->getAllCommentsForPostId($post_id);
     }
 
     public function getAllCommentsForUserId($user_id)
     {
-        $comments = DB::table('comments')
-            ->where('user_id','=',$user_id)
-            ->get();
-        return $comments;
+        return $this->commentService->getAllCommentsForUserId($user_id);
     }
 
-    public function getCommentByIdForPostId($post_id,$comment_id)
+    public function getCommentById($comment_id)
     {
-        $comments = DB::table('comments')
-            ->where('id','=',$comment_id)
-            ->where('post_id','=',$post_id)
-            ->get();
-        return $comments;
+        return $this->commentService->getCommentById($comment_id);
     }
 }

@@ -3,32 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\User\UserService;
 
 class UserController extends Controller
 {
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function addUser(Request $request)
     {
-        $name = $request->input('name');
-        $email=$request->input('email');
-        $password=$request->input('password');
-        $id=DB::table('users')->insertGetId([
-            'name'=>$name,
-            'email'=>$email,
-            'password'=>$password
-        ]);
-        return $id;
+        return $this->userService->addUser($request);
     }
 
     public function getAllUsers()
     {
-        $users = DB::table('users')->get();
-        return $users;
+        return $this->userService->getAllUsers();
     }
 
     public function getUserById($id)
     {
-        $users = DB::table('users')->where('id','=',$id)->get();
-        return $users;
+        return $this->userService->getUserById($id);
     }
 }

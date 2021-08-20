@@ -21,19 +21,27 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+//User APIs
 Route::get('/users',[UserController::class,'getAllUsers']);
 Route::get('/users/{user}',[UserController::class,'getUserById']);
+Route::post('/users',[UserController::class, 'addUser']);
+
+//Post APIs
+Route::get('/posts',[PostController::class,'getAllPosts']);
+Route::get('/posts/{post}',[PostController::class,'getPostById']);
 Route::get('/users/{user}/posts',[PostController::class,'getAllPostsForUserId']);
-Route::get('/users/{user}/posts/{post}',[PostController::class,'getPostByIdForUserId']);
+Route::post('/users/{user}/posts',[PostController::class, 'addPost']);
+
+//Comment APIs
+Route::get('/comments',[CommentController::class,'getAllComments']);
+Route::get('/comments/{comments}',[CommentController::class,'getCommentById']);
 Route::get('/posts/{post}/comments',[CommentController::class,'getAllCommentsForPostId']);
 Route::get('/users/{user}/comments',[CommentController::class,'getAllCommentsForUserId']);
-Route::get('/posts/{post}/comment/{comment}',[CommentController::class,'getCommentByIdForPostId']);
+Route::post('/posts/{post}/comments',[CommentController::class, 'addComment']);
 
-Route::post('/user',[UserController::class, 'addUser']);
-Route::post('/user/{user}/post',[PostController::class, 'addPost']);
-Route::post('/post/{post}/comment',[CommentController::class, 'addComment']);
 
-Route::delete('/user/{user}',[UserController::class, 'deleteUser']);
-Route::delete('/post/{post}',[PostController::class, 'deletePost']);
-Route::delete('/comment/{comment}',[CommentController::class, 'deleteComment']);
+
+
+//Route::delete('/user/{user}',[UserController::class, 'deleteUser']);
+//Route::delete('/post/{post}',[PostController::class, 'deletePost']);
+//Route::delete('/comment/{comment}',[CommentController::class, 'deleteComment']);
